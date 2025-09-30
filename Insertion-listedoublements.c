@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include<windows.h>
 
 typedef struct liste  {
     int data;
@@ -83,4 +82,5 @@ int main() {
     }
 
     return 0;
+
 }
