@@ -16,6 +16,7 @@ Liste New_Liste ( int lenghs )
         printf (" Erreur d'allocation \n") ;
         exit (1) ;
     }
+    L->next = L ; 
     printf ("Entrer la valeur de element 1 :") ;
     scanf ("%f", &L->x ) ;
     Liste temp = L ;
@@ -25,7 +26,7 @@ Liste New_Liste ( int lenghs )
             printf (" Erreur d'allocation \n") ;
             exit (1) ;
         }   
-        printf ("Entrer la valeur de element 1 :") ;
+        printf ("Entrer la valeur de element %d :", i+1 ) ;
         scanf ("%f", &le->x ) ;
         temp->next = le ;
         temp = temp->next ;
@@ -45,7 +46,7 @@ void Affiche_Liste ( Liste L )
             printf(" -[%.2f]- ", temp->x) ;
             temp = temp->next ;
             }while ( temp != L ) ;
-            printf("\n") ;
+            printf("(retour a la tete)\n");
         }
     }
 }
@@ -59,18 +60,22 @@ Liste Insert ( Liste L )
         printf (" Erreur d'allocation \n") ;
         exit (1) ;
     }
-    printf ("Entrez lelement que vous souhaitez inserer \n ") ;
+    printf ("Entrez l'element que vous souhaitez inserer \n ") ;
     scanf ("%f", &Lcc->x ) ;
     Lcc->next = L ;
+    if ( L == NULL ) {
+        Lcc->next = Lcc ;
+        return Lcc ;
+    }
     do {
         temp = temp->next ;
     }while (temp->next != L) ;
     temp->next = Lcc ;
     printf ("Voulez vous inserer en tete ou en queue de la liste :\n 1-Tete \n 2- Queue \n ") ;
     scanf ("%d", &ch ) ;
-    if ( ch = 1 )
+    if ( ch == 1 )
         return Lcc ;
-    else if ( ch = 2 )
+    else if ( ch == 2 )
         return L ;
     printf ("Valeur incorrecte \n ") ;
 }
@@ -92,19 +97,18 @@ int main ()
         switch ( choix )  
         {
             case 1 :
-                printf("Entrer le nombre de cellule de la liste ( minimum deux ) \n ") ;
+                printf("Entrer le nombre de cellule de la liste \n ") ;
                 scanf ("%d", &nb ) ;
-                if ( nb <= 1 ) {
-                    printf (" Nombre de cellule incorrecte pour une liste chainee circulaire \n ") ;
-                }else {
-                    Lc = New_Liste ( nb ) ;
-                }
+                Lc = New_Liste ( nb ) ;
                 break ;
             case 2 :
                 Affiche_Liste ( Lc ) ;
                 break ;
             case 3 :
                 Lc = Insert ( Lc ) ;
+                break ;
+            case 0 :
+                printf("Sortie...\n");
                 break ;
             default : printf ("Valeur incorrecte \n ") ;
         }
